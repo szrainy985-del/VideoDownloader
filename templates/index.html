@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>批量视频下载器</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+  <div class="container">
+    <header>
+      <h1>批量视频下载器</h1>
+      <p class="subtitle">支持 TikTok / Google Drive · 从 Excel 批量下载并自动打包</p>
+    </header>
+
+    <section class="card" id="upload-section">
+      <h2>1. 上传 Excel</h2>
+      <div class="drop-zone" id="drop-zone">
+        <div class="drop-zone-content">
+          <svg class="drop-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+            <path d="M12 16V4m0 0l-4 4m4-4l4 4M4 16v2a2 2 0 002 2h12a2 2 0 002-2v-2"/>
+          </svg>
+          <p>拖拽 Excel 文件到此处，或 <label for="file-input" class="link">点击选择</label></p>
+          <p class="hint">支持 .xlsx / .xls · 需包含 code, version, video, language, size, game, url 列</p>
+        </div>
+        <input type="file" id="file-input" accept=".xlsx,.xls" hidden>
+      </div>
+      <div class="file-info hidden" id="file-info">
+        <span class="file-name" id="file-name"></span>
+        <button type="button" class="btn-text" id="clear-file">移除</button>
+      </div>
+    </section>
+
+    <section class="card">
+      <h2>2. 输出目录</h2>
+      <div class="path-input-group">
+        <input type="text" id="output-dir" value="{{ default_output_dir }}" placeholder="输入输出目录路径">
+        <button type="button" class="btn-secondary" id="browse-dir" title="在 Windows 上可手动输入路径">?</button>
+      </div>
+      <p class="hint">ZIP 和 failed.xlsx 将保存到此目录</p>
+    </section>
+
+    <section class="card">
+      <button type="button" class="btn-primary" id="start-btn" disabled>开始下载</button>
+    </section>
+
+    <section class="card hidden" id="progress-section">
+      <h2>下载进度</h2>
+      <div class="progress-bar-wrap">
+        <div class="progress-bar" id="progress-bar"></div>
+      </div>
+      <div class="progress-stats">
+        <span id="progress-text">0 / 0</span>
+        <span id="progress-percent">0%</span>
+      </div>
+      <p class="current-file" id="current-file"></p>
+
+      <div class="log-panel" id="log-panel"></div>
+
+      <div class="result-actions hidden" id="result-actions">
+        <a class="btn-primary" id="download-zip" href="#">下载 ZIP</a>
+        <a class="btn-secondary hidden" id="download-failed" href="#">下载失败记录</a>
+        <p class="result-path" id="result-path"></p>
+      </div>
+    </section>
+  </div>
+
+  <script src="{{ url_for('static', filename='js/app.js') }}"></script>
+</body>
+</html>
