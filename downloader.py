@@ -85,7 +85,7 @@ def process_excel(
             elif "drive.google" in url.lower():
                 output_file = f"{downloads_dir}/{filename}.mp4"
 
-                gdown.download(url, output_file, quiet=True, fuzzy=True)
+                gdown.download(url, output_file, quiet=False)
 
                 downloaded_files.append(output_file)
 
